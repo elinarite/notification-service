@@ -1,0 +1,10 @@
+name: Print workflow 
+on: workflow_dispatch
+
+jobs:
+  print_hello:
+    runs-on: macos-13
+    
+    steps: 
+      - name: Print hello
+        run: echo "Hello world!"
