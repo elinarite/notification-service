@@ -8,6 +8,16 @@ jobs:
 
     runs-on: macos-13
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: Elina1980.
+          MYSQL_DATABASE: test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
