@@ -29,6 +29,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>com.mysql</groupId>
@@ -59,6 +66,47 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <version>3.0.0</version>-->
+<!--                <configuration>-->
+<!--                    <configLocation>checkstyle.xml</configLocation>-->
+<!--&lt;!&ndash;                    <configLocation>src/main/resources/checkstyle.xml</configLocation> &lt;!&ndash; путь до вашего checkstyle файла &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                    <failsOnError>true</failsOnError>&ndash;&gt;-->
+<!--                </configuration>-->
+
+<!--            </plugin>-->
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <version>3.0.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>process- источники</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <configLocation>checkstyle.xml</configLocation>-->
+<!--                    <skip>false</skip>-->
+<!--                    <consoleOutput>true</consoleOutput>-->
+<!--                    <failsOnError>true</failsOnError>-->
+<!--                    <failOnViolation>true</failOnViolation>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <configLocation>path/to/checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
         </plugins>
