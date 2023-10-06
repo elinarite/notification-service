@@ -19,6 +19,7 @@ jobs:
       - name: build with Maven
         run: mvn -B package --file pom.xml
   test:
+    needs: [build]
     runs-on: macos-13
     steps:
       - uses: actions/checkout@v3
