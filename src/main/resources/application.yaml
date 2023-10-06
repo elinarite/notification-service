@@ -3,7 +3,6 @@ spring:
     banner-mode: console
     allow-circular-references: true
 
-
   datasource:
     url: jdbc:mysql://localhost:3306/test
     username: root
@@ -32,17 +31,5 @@ spring:
           type:
             INFO
 
-
 server:
   port: 8081
-
-
-
-
-
-
-
-
-
-
-
