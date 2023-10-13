@@ -1,35 +1,43 @@
-spring:
-  main:
-    banner-mode: console
-    allow-circular-references: true
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/test
-    username: root
-    password: Elina1980.
-
-  jpa:
-    generate-ddl: true
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        logging.level.org.springframework.web: DEBUG
-        logging.level.org.springframework.web.client: DEBUG
-        logging.level.org.springframework: DEBUG
-        logging.level.org.hibernate.SQL: DEBUG
-        logging.level.org.hibernate.type: DEBUG
-        dialect: org.hibernate.dialect.MySQL8Dialect
-
-        logging.level.root: DEBUG
-        naming:
-          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
-      properties:
-        hibernate:
-          SQL: INFO
-          type:
-            INFO
-
-server:
-  port: 8081
+#spring:
+#  main:
+#    banner-mode: console
+#    allow-circular-references: true
+#    allow-bean-definition-overriding: true
+#
+#  datasource:
+#    url: ${datasource.url}test
+#    username: ${datasource.username}
+#    password: ${datasource.password}
+#
+#  jpa:
+#    generate-ddl: true
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        logging.level.org.springframework.web: DEBUG
+#        logging.level.org.springframework.web.client: DEBUG
+#        logging.level.org.springframework: DEBUG
+#        logging.level.org.hibernate.SQL: DEBUG
+#        logging.level.org.hibernate.type: DEBUG
+#        dialect: org.hibernate.dialect.MySQL8Dialect
+#
+#        logging.level.root: DEBUG
+#        naming:
+#          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#
+#      properties:
+#        hibernate:
+#          SQL: INFO
+#          type:
+#            INFO
+#
+#server:
+#  port: ${server.port}
+#
+#bot:
+#  name: ${telegram.bot.name}
+#  token: ${telegram.bot.token}
+#  owner: ${telegram.bot.owner}
+#
+#mexc.currency.rates.url:  wss://wbs.mexc.com/ws
