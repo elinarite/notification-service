@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: build with Maven
-        run: mvn -B package -DskipTests=true --file pom.xml
+        run: mvn -B package --file pom.xml
   test:
     needs: [build]
     runs-on: macos-13
@@ -28,5 +28,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: use Telegram Token
+        run: echo "Using token ${{ secrets.BOT_TOKEN }}"
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       - name: Test
         run: mvn test
