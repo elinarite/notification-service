@@ -5,31 +5,27 @@ import com.example.notificationservice.Service.ServiceException;
 import com.example.notificationservice.webSocket.WebSocketClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.concurrent.ExecutionException;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
-
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final Logger LOG = LoggerFactory.getLogger(NotificationServiceImpl.class);
     private static final String USDT_JSON = "{\"method\": \"SUBSCRIPTION\", \"params\": [\"spot@public.deals.v3.api@BTCUSDT\"]}";
-    private static final String EUR_JSON= "/ValCurs//Valute[@ID='6389.06534240']/Value";
+    private static final String EUR_JSON = "/ValCurs//Valute[@ID='6389.06534240']/Value";
 
     @Autowired
     private WebSocketClient client;
+
     @Override
     public String getUSDExchangeRate() throws ServiceException {
         try {
             String json = client.startListening().get(); // ожидание завершения асинхронной операции
             return extractCurrencyValueFromJson(json, USDT_JSON);
         } catch (InterruptedException | ExecutionException e) {
-            throw new ServiceException("Ошибка при получении курса валюты", e);
+            throw new ServiceException("Error when getting exchange rate", e);
         }
     }
 
@@ -37,7 +33,6 @@ public class NotificationServiceImpl implements NotificationService {
         try {
             JsonNode rootNode = objectMapper.readTree(json);
 
-            // Проверка на подтверждение подписки
             if (rootNode.has("id") && rootNode.get("id").asInt() == 0 && rootNode.has("code") && rootNode.get("code").asInt() == 0) {
                 return rootNode.get("msg").asText();
             }
@@ -57,7 +52,7 @@ public class NotificationServiceImpl implements NotificationService {
             }
             return rootNode.asText();
         } catch (Exception e) {
-            throw new ServiceException("Не удалось распарсить JSON", e);
+            throw new ServiceException("Failed to parse JSON", e);
         }
     }
 }
