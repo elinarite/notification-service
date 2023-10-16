@@ -28,5 +28,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: use Telegram Token
+        run: echo "Using token ${{ secrets.BOT_TOKEN }}"
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       - name: Test
         run: mvn test
