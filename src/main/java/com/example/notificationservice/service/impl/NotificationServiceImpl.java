@@ -1,7 +1,7 @@
-package com.example.notificationservice.Service.impl;
+package com.example.notificationservice.service.impl;
 
-import com.example.notificationservice.Service.NotificationService;
-import com.example.notificationservice.Service.ServiceException;
+import com.example.notificationservice.service.NotificationService;
+import com.example.notificationservice.service.ServiceException;
 import com.example.notificationservice.webSocket.WebSocketClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
