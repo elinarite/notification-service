@@ -71,7 +71,7 @@ jobs:
           PGPASSWORD: arite
 
       - name: Настройка базы данных
-        run: psql -h localhost -p 5433 -U postgres -d test_db -a -f ddl-create-schema-0.1.0.sql
+        run: psql -h localhost -p 5433 -U postgres -d notification_service -a -f ddl-create-schema-0.1.0.sql
         env:
           PGPASSWORD: arite
 
