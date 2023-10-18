@@ -2,59 +2,82 @@
 # and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
-name: Java CI with Maven
-on: push
-
-jobs:
-  build:
-    runs-on: macos-13
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-      - name: use Telegram Token
-        run: echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> $GITHUB_ENV
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      - name: build with Maven
-        run: mvn -B package --file pom.xml
-  test:
-    needs: [build]
-    runs-on: macos-13
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Test
-        run: mvn test
 #name: Java CI with Maven
 #on: push
 #
 #jobs:
-#  build_and_test:
+#  build:
 #    runs-on: macos-13
 #    steps:
 #      - uses: actions/checkout@v3
-#
 #      - name: Set up JDK 17
 #        uses: actions/setup-java@v3
 #        with:
 #          java-version: '17'
 #          distribution: 'temurin'
 #          cache: maven
-#
-#      - name: Set Telegram Token
+#      - name: use Telegram Token
 #        run: echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> $GITHUB_ENV
-#
-#      - name: Build with Maven
+#        env:
+#          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+#      - name: build with Maven
 #        run: mvn -B package --file pom.xml
-#
-#      - name: Test with Maven
+#  test:
+#    needs: [build]
+#    runs-on: macos-13
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#      - name: Test
 #        run: mvn test
+name: Java CI with Maven
+
+on: push
+
+jobs:
+  build:
+    runs-on: macos-13
+
+    # Здесь начинается настройка PostgreSQL
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: arite
+          POSTGRES_DB: notification_service
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Убедитесь, что PostgreSQL запущен
+        run: |
+          while ! nc -z localhost 5432; do
+            sleep 1
+          done
+        env:
+          PGPASSWORD: arite
+
+      - name: Настройка базы данных
+        run: psql -h localhost -U postgres -d test_db -a -f ddl-create-schema-0.1.0.sql
+        # Предположим, что у вас есть файл setup.sql, который содержит SQL-команды для настройки вашей базы данных.
+
+      - name: Использование токена Telegram
+        run: echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> $GITHUB_ENV
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+
+      - name: Сборка с Maven
+        run: mvn -B package --file pom.xml
