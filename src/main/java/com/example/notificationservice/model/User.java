@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -34,4 +35,26 @@ public class User {
     @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(chatId, user.chatId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(chatId);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "chatId=" + chatId +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
