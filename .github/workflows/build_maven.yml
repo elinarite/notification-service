@@ -64,7 +64,7 @@ jobs:
 
       - name: Убедитесь, что PostgreSQL запущен
         run: |
-          while ! nc -z localhost 5432; do
+          while ! nc -z localhost 5433; do
             sleep 1
           done
         env:
