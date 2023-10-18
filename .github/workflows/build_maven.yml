@@ -70,10 +70,10 @@ jobs:
         env:
           PGPASSWORD: arite
 
-      - name: Настройка базы данных
-        run: psql -h localhost -p 5433 -U postgres -d notification_service -a -f ddl-create-schema-0.1.0.sql
-        env:
-          PGPASSWORD: arite
+#      - name: Настройка базы данных
+#        run: psql -h localhost -p 5433 -U postgres -d notification_service -a -f ddl-create-schema-0.1.0.sql
+#        env:
+#          PGPASSWORD: arite
 
         # Предположим, что у вас есть файл setup.sql, который содержит SQL-команды для настройки вашей базы данных.
 
