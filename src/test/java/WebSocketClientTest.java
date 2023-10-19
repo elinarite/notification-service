@@ -1,11 +1,10 @@
-import com.example.notificationservice.Service.impl.TelegramBotService;
+import com.example.notification.service.impl.TelegramBotService;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.PropertySource;
 import steps.SubscriptionSteps;
 import steps.WebSocketSteps;
 

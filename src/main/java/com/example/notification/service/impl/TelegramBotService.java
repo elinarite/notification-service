@@ -1,10 +1,9 @@
-package com.example.notificationservice.Service.impl;
+package com.example.notification.service.impl;
 
-import com.example.notificationservice.Service.NotificationService;
-import com.example.notificationservice.Service.ServiceException;
-import com.example.notificationservice.bot.TelegramBotConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.notification.bot.TelegramBotConfig;
+import com.example.notification.service.NotificationService;
+import com.example.notification.service.ServiceException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -14,9 +13,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDate;
 
+@Slf4j
 @Component
 public class TelegramBotService extends TelegramLongPollingBot {
-    private static final Logger LOG = LoggerFactory.getLogger(TelegramBotService.class);
     private static final String START = "/start";
     private static final String USD = "/usd";
 
@@ -77,7 +76,7 @@ public class TelegramBotService extends TelegramLongPollingBot {
             var text = "The dollar exchange rate at %s is %s btc";
             formattedText = String.format(text, LocalDate.now(), usd);
         } catch (ServiceException e) {
-            LOG.error("Error getting dollar exchange rate", e);
+            log.error("Error getting dollar exchange rate", e);
             formattedText = "Could not get the current dollar rate. Try later..";
         }
         sendMessage(chatId, formattedText);
@@ -95,7 +94,7 @@ public class TelegramBotService extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            LOG.error("Error sending message", e);
+            log.error("Error sending message", e);
         }
     }
 }

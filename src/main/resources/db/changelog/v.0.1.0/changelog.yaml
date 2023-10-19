@@ -1,0 +1,5 @@
+databaseChangeLog:
+   - include:
+      file: db/changelog/v.0.1.0/ddl-create-tables-0.1.0.sql
+   - include:
+      file: db/changelog/v.0.1.0/test-data-0.1.0.sql
