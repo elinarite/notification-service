@@ -1,6 +1,9 @@
 package com.example.notification.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,12 +43,12 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(chatId, user.chatId);
+        return Objects.equals(chatId, user.chatId) && Objects.equals(userName, user.userName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chatId);
+        return Objects.hash(chatId, userName);
     }
 
     @Override

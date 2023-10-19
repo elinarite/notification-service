@@ -50,12 +50,12 @@ public class Notification {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Notification that)) return false;
-        return Objects.equals(id, that.id);
+        return Objects.equals(id, that.id) && Objects.equals(currencyName, that.currencyName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, currencyName);
     }
 
     @Override
