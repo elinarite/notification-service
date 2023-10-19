@@ -1,7 +1,7 @@
-package com.example.notification_service.webSocket;
+package com.example.notification.webSocket;
 
-import com.example.notification_service.service.ServiceException;
-import com.example.notification_service.service.impl.TelegramBotService;
+import com.example.notification.service.ServiceException;
+import com.example.notification.service.impl.TelegramBotService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -32,7 +32,7 @@ public class WebSocketClient {
             startListening();
 
         } catch (ServiceException e) {
-            log.info("Error starting WebSocket listener: " + e);
+            log.info("Error starting WebSocket listener: ", e);
         }
     }
 

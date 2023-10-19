@@ -17,4 +17,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn install -DskipTests

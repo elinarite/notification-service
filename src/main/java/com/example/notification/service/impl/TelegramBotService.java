@@ -1,8 +1,8 @@
-package com.example.notification_service.service.impl;
+package com.example.notification.service.impl;
 
-import com.example.notification_service.bot.TelegramBotConfig;
-import com.example.notification_service.service.NotificationService;
-import com.example.notification_service.service.ServiceException;
+import com.example.notification.bot.TelegramBotConfig;
+import com.example.notification.service.NotificationService;
+import com.example.notification.service.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
