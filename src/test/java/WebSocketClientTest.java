@@ -1,4 +1,4 @@
-import com.example.notificationservice.service.impl.TelegramBotService;
+import com.example.notification_service.service.impl.TelegramBotService;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import org.junit.jupiter.api.BeforeEach;

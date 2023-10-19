@@ -1,4 +1,4 @@
-package com.example.notificationservice.bot;
+package com.example.notification_service.bot;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

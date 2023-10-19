@@ -1,4 +1,4 @@
-package com.example.notificationservice.service;
+package com.example.notification_service.service;
 
 public class ServiceException extends Exception {
     public ServiceException(String message) {

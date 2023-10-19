@@ -1,4 +1,4 @@
-package com.example.notificationservice.service;
+package com.example.notification_service.service;
 
 public interface NotificationService {
     String getUSDExchangeRate() throws ServiceException;

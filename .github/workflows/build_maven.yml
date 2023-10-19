@@ -3,52 +3,18 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
 name: Java CI with Maven
-
 on: push
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    # Здесь начинается настройка PostgreSQL
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_PASSWORD: arite
-          POSTGRES_DB: notification_service
-        ports:
-          - 5433:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: Убедитесь, что PostgreSQL запущен
-        run: |
-          while ! nc -z localhost 5433; do
-            sleep 1
-          done
-        env:
-          PGPASSWORD: arite
-
-#      - name: Настройка базы данных
-#        run: psql -h localhost -p 5433 -U postgres -d notification_service -a -f ddl-create-schema-0.1.0.sql
-#        env:
-#          PGPASSWORD: arite
-
-        # Предположим, что у вас есть файл setup.sql, который содержит SQL-команды для настройки вашей базы данных.
-
-      - name: Использование токена Telegram
-        run: echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> $GITHUB_ENV
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-
-      - name: Сборка с Maven
+          cache: maven
+      - name: build with Maven
         run: mvn -B package --file pom.xml

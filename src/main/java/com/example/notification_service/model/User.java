@@ -1,4 +1,4 @@
-package com.example.notificationservice.model;
+package com.example.notification_service.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+//todo @Data
 @Getter
 @Setter
 @AllArgsConstructor

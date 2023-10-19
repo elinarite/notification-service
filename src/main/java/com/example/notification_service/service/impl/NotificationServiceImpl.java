@@ -1,8 +1,8 @@
-package com.example.notificationservice.service.impl;
+package com.example.notification_service.service.impl;
 
-import com.example.notificationservice.service.NotificationService;
-import com.example.notificationservice.service.ServiceException;
-import com.example.notificationservice.webSocket.WebSocketClient;
+import com.example.notification_service.service.NotificationService;
+import com.example.notification_service.service.ServiceException;
+import com.example.notification_service.webSocket.WebSocketClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
