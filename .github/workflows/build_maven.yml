@@ -17,4 +17,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: build with Maven
-        run: mvn install -DskipTests
+        run: ./mvnw verify
