@@ -8,7 +8,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
-@SpringBootTest(classes = NotificationServiceApplicationTest.class)
+@SpringBootTest
 class NotificationServiceApplicationTest {
 
     @Container
