@@ -17,5 +17,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: build with Maven
-#        run: ./mvnw verify
-        run: mvn verify
+        run: ./mvnw verify
