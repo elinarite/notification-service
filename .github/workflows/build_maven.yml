@@ -10,9 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
+      # Docker in Docker
       docker:
         image: docker:19.03.5-dind
-        options: "--privileged --entrypoint 'dockerd-entrypoint.sh'"
+        options: "--privileged"
+        env:
+          DOCKER_DRIVER: overlay
+          DOCKER_HOST: "tcp://localhost:2375"
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -21,5 +25,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Setup Docker
+        run: |
+            sudo service docker start
       - name: build with Maven
         run: ./mvnw verify
+        env:
+          DOCKER_HOST: "tcp://localhost:2375"
