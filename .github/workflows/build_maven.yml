@@ -8,27 +8,40 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    services:
-      # Docker in Docker
-      docker:
-        image: docker:19.03.5-dind
-        options: "--privileged"
-        env:
-          DOCKER_DRIVER: overlay
-          DOCKER_HOST: "tcp://localhost:2375"
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-      - name: Setup Docker
-        run: |
-            sudo service docker start
-      - name: build with Maven
-        run: ./mvnw verify
-        env:
-          DOCKER_HOST: "tcp://localhost:2375"
+          - uses: actions/checkout@v3
+          - name: Set up JDK 17
+            uses: actions/setup-java@v3
+            with:
+              java-version: '17'
+              distribution: 'temurin'
+              cache: maven
+          - name: Setup Docker
+            run: |
+                sudo service docker start
+          - name: build with Maven
+            run: ./mvnw verify
+
+#    services:
+#      # Docker in Docker
+#      docker:
+#        image: docker:19.03.5-dind
+#        options: "--privileged"
+#        env:
+#          DOCKER_DRIVER: overlay
+#          DOCKER_HOST: "tcp://localhost:2375"
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#          cache: maven
+#      - name: Setup Docker
+#        run: |
+#            sudo service docker start
+#      - name: build with Maven
+#        run: ./mvnw verify
+#        env:
+#          DOCKER_HOST: "tcp://localhost:2375"
