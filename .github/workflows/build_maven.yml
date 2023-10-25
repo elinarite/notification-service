@@ -16,9 +16,9 @@ jobs:
               java-version: '17'
               distribution: 'temurin'
               cache: maven
-          - name: Setup Docker
-            run: |
-                sudo service docker start
+#          - name: Setup Docker
+#            run: |
+#                sudo service docker start
           - name: build with Maven
             run: ./mvnw verify
 
