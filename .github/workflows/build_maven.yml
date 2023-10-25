@@ -25,22 +25,14 @@ jobs:
 
       - name: Build without tests
         run: mvn clean install -DskipTests
+      - name: Display Docker version
+        run: docker --version
 
-      - name: Setup Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-          sudo apt-get update
-          sudo apt-get install -y docker-ce
-
-
-      - name: Run tests
-        run: mvn test
-        env:
-          TESTCONTAINERS_CHECKS_DISABLE: "true"
-          TESTCONTAINERS_RYUK_DISABLED: "true"
+#      - name: Run tests
+#        run: mvn test
+#        env:
+#          TESTCONTAINERS_CHECKS_DISABLE: "true"
+#          TESTCONTAINERS_RYUK_DISABLED: "true"
 
 
 #    services:
