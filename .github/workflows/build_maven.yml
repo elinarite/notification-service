@@ -15,14 +15,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
+          cache: 'maven'
 
       - name: Build without tests
         run: mvn clean install -DskipTests
       - name: Display Docker version
         run: docker --version
 
-      - name: Run tests
-        run: mvn test
+#      - name: Run tests
+#        run: mvn test
       - name: Build Maven with Test
         run: mvn -B package --file pom.xml
