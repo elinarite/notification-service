@@ -19,9 +19,15 @@ jobs:
 #          - name: Setup Docker
 #            run: |
 #                sudo service docker start
-          - name: build with Maven
+#          - name: build with Maven
 #            run: ./mvnw verify
-            run: mvn clean verify
+#            run: mvn clean verify
+
+          - name: Build without tests
+            run: mvn clean install -DskipTests
+
+          - name: Run tests
+            run: mvn test
 
 #    services:
 #      # Docker in Docker
