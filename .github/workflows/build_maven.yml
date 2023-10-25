@@ -15,14 +15,18 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'maven'
+          cache: maven
 
       - name: Build without tests
         run: mvn clean install -DskipTests
       - name: Display Docker version
         run: docker --version
+      - name: Set BOT_NAME Environment Variable
+        run: echo "BOT_NAME=${{ secrets.BOT_NAME }}" >> $GITHUB_ENV
 
-#      - name: Run tests
-#        run: mvn test
-      - name: Build Maven with Test
-        run: mvn -B package --file pom.xml
+      - name: Run tests
+        run: mvn test -DargLine='-DBOT_NAME=${{ env.BOT_NAME }}'
+#        #      - name: Run tests
+#        #        run: mvn test
+#        - name: Build Maven with Test
+#          run: mvn -B package --file pom.xml
