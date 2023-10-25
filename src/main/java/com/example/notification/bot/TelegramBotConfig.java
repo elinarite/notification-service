@@ -24,9 +24,4 @@ public class TelegramBotConfig {
 
     @Value("${bot.owner}")
     Long ownerId;
-
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
 }
