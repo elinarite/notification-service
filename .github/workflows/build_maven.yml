@@ -23,10 +23,9 @@ jobs:
         run: docker --version
       - name: Set BOT_NAME Environment Variable
         run: echo "BOT_NAME=${{ secrets.BOT_NAME }}" >> $GITHUB_ENV
-
+             echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> $GITHUB_ENV
+             echo "BOT_OWNER=${{ secrets.BOT_OWNER }}" >> $GITHUB_ENV
       - name: Run tests
-        run: mvn test -DargLine='-DBOT_NAME=${{ env.BOT_NAME }}'
-#        #      - name: Run tests
-#        #        run: mvn test
-#        - name: Build Maven with Test
-#          run: mvn -B package --file pom.xml
+        run: mvn test -DargLine='-DBOT_NAME=${{ env.BOT_NAME }}
+                                 -DBOT_TOKEN=${{ env.BOT_TOKEN }} 
+                                 -DBOT_OWNER=${{ env.BOT_OWNER }}'
