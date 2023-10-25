@@ -8,12 +8,6 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:13
-        ports:
-          - 5433:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
           - uses: actions/checkout@v3
           - name: Set up JDK 17
@@ -26,7 +20,8 @@ jobs:
 #            run: |
 #                sudo service docker start
           - name: build with Maven
-            run: ./mvnw verify
+#            run: ./mvnw verify
+            run: mvn clean verify
 
 #    services:
 #      # Docker in Docker
