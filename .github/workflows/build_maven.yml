@@ -25,7 +25,8 @@ jobs:
         run: echo "BOT_NAME=${{ secrets.BOT_NAME }}" >> $GITHUB_ENV
       - name: Set BOT_TOKEN Environment Variable
         run: echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> $GITHUB_ENV
-             echo "BOT_OWNER=${{ secrets.BOT_OWNER }}" >> $GITHUB_ENV
+      - name: Set BOT_OWNER Environment Variable
+        run: echo "BOT_OWNER=${{ secrets.BOT_OWNER }}" >> $GITHUB_ENV
       - name: Run tests
         run: mvn test -DargLine='-DBOT_NAME=${{ env.BOT_NAME }}' -DargLine='-DBOT_TOKEN=${{ env.BOT_TOKEN }}' -DargLine='-DBOT_OWNER=${{ env.BOT_OWNER }}'
 
