@@ -7,13 +7,13 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-//@Testcontainers
+@Testcontainers
 @SpringBootTest(classes = NotificationServiceApplicationTest.class)
 class NotificationServiceApplicationTest {
 
-//    @Container
-//    @ServiceConnection
-//    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:13");
+    @Container
+    @ServiceConnection
+    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:13");
 
     @Test
     void contextLoads() {

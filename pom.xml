@@ -97,12 +97,12 @@
             <artifactId>liquibase-core</artifactId>
             <version>4.23.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.liquibase.ext</groupId>
-            <artifactId>liquibase-mssql</artifactId>
-            <version>4.23.0</version>
-        </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.liquibase.ext</groupId>-->
+<!--            <artifactId>liquibase-mssql</artifactId>-->
+<!--            <version>4.23.0</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -120,11 +120,11 @@
             <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.4.6</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-classic</artifactId>-->
+<!--            <version>1.4.6</version>-->
+<!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>org.junit.jupiter</groupId>-->
 <!--            <artifactId>junit-jupiter</artifactId>-->
