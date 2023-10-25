@@ -9,25 +9,39 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-          - uses: actions/checkout@v3
-          - name: Set up JDK 17
-            uses: actions/setup-java@v3
-            with:
-              java-version: '17'
-              distribution: 'temurin'
-              cache: maven
-#          - name: Setup Docker
-#            run: |
-#                sudo service docker start
-#          - name: build with Maven
-#            run: ./mvnw verify
-#            run: mvn clean verify
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      #          - name: Setup Docker
+      #            run: |
+      #                sudo service docker start
+      #          - name: build with Maven
+      #            run: ./mvnw verify
+      #            run: mvn clean verify
 
-          - name: Build without tests
-            run: mvn clean install -DskipTests
+      - name: Build without tests
+        run: mvn clean install -DskipTests
 
-          - name: Run tests
-            run: mvn test
+      - name: Setup Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          sudo apt-get update
+          sudo apt-get install -y docker-ce
+
+
+      - name: Run tests
+        run: mvn test
+        env:
+          TESTCONTAINERS_CHECKS_DISABLE: "true"
+          TESTCONTAINERS_RYUK_DISABLED: "true"
+
 
 #    services:
 #      # Docker in Docker
