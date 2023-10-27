@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 public class BaseTest {
 
     @MockBean
-    public TelegramBotService telegramBotService;
+    public TelegramBotService mocktelegramBotService;
 
     @MockBean
     public TelegramBotsApi telegramBotsApi;

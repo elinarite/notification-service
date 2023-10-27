@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Configuration
 @EnableScheduling
 @Data
-@PropertySource("classpath:application.properties")
+//@PropertySource("classpath:application.properties")
 public class TelegramBotConfig {
 
     @Value("${bot.name}")

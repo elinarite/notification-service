@@ -28,7 +28,7 @@ public class WebSocketClientTest extends BaseTest {
         WebSocketListener listener = new WebSocketListener() {
             @Override
             public void onMessage(okhttp3.WebSocket webSocket, String text) {
-                telegramBotService.sendMessage(1361169404L, "New message: " + text);
+                mocktelegramBotService.sendMessage(1361169404L, "New message: " + text);
             }
         };
 
@@ -38,6 +38,6 @@ public class WebSocketClientTest extends BaseTest {
 
         Thread.sleep(10000);
 
-        verify(telegramBotService, atLeastOnce()).sendMessage(anyLong(), startsWith("New message:"));
+        verify(mocktelegramBotService, atLeastOnce()).sendMessage(anyLong(), startsWith("New message:"));
     }
 }
