@@ -1,6 +1,5 @@
 package com.example.notification;
 
-
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,14 +17,10 @@ public class WebSocketClientTest extends BaseTest {
     private WebSocketSteps webSocketSteps;
     private SubscriptionSteps subscriptionSteps;
 
-//    @MockBean
-//    private TelegramBotService mockTelegramBotService;
-
     @BeforeEach
     public void setup() {
         webSocketSteps = new WebSocketSteps();
         subscriptionSteps = new SubscriptionSteps();
-//        mockTelegramBotService = mock(TelegramBotService.class);
     }
 
     @Test
