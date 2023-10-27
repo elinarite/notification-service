@@ -28,5 +28,6 @@ jobs:
 #      - name: Set BOT_OWNER Environment Variable
 #        run: echo "BOT_OWNER=${{ secrets.BOT_OWNER }}" >> $GITHUB_ENV
       - name: Run tests
-        run: mvn test
+#        run: mvn test
+        run: mvn -B package --file pom.xml
 #          -DargLine='-DBOT_NAME=${{ env.BOT_NAME }}' -DargLine='-DBOT_TOKEN=${{ env.BOT_TOKEN }}' -DargLine='-DBOT_OWNER=${{ env.BOT_OWNER }}'
