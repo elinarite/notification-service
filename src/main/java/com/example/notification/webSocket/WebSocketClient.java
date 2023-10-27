@@ -54,7 +54,7 @@ public class WebSocketClient {
 
             @Override
             public void onMessage(WebSocket webSocket, String text) {
-                telegramBotService.sendMessage(1361169404L, "Новое значение: " + text);
+//                telegramBotService.sendMessage(1361169404L, "Новое значение: " + text);
                 log.info("Received message via WebSocket: " + text);
             }
 

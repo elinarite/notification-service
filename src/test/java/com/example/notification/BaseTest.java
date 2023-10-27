@@ -1,5 +1,6 @@
 package com.example.notification;
 
+import com.example.notification.bot.TelegramBotConfig;
 import com.example.notification.service.impl.TelegramBotService;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,4 +14,7 @@ public class BaseTest {
 
     @MockBean
     public TelegramBotsApi telegramBotsApi;
+
+    @MockBean
+    private TelegramBotConfig telegramBotConfig;
 }
