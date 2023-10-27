@@ -1,7 +1,9 @@
 package com.example.notification;
 
+import com.example.notification.service.impl.TelegramBotService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -9,7 +11,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
 @SpringBootTest
-class NotificationServiceApplicationTest {
+class NotificationServiceApplicationTest extends BaseTest{
 
     @Container
     @ServiceConnection
