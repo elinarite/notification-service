@@ -7,7 +7,7 @@ on: push
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -16,5 +16,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: build with Maven
-        run: mvn install -DskipTests
+
+      - name: Build without tests
+        run: mvn clean install -DskipTests
+      - name: Display Docker version
+        run: docker --version
+      - name: Run tests
+        run: mvn test
