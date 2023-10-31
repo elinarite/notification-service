@@ -1,6 +1,6 @@
-package com.example.notification.bot;
+package com.example.notification.bot.config;
 
-import com.example.notification.service.impl.TelegramBotService;
+import com.example.notification.bot.TelegramBotService;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

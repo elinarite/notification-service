@@ -1,4 +1,4 @@
-package com.example.notification.model;
+package com.example.notification.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,11 +54,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "chatId=" + chatId +
-                ", userName='" + userName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+               "chatId=" + chatId +
+               ", userName='" + userName + '\'' +
+               ", firstName='" + firstName + '\'' +
+               ", lastName='" + lastName + '\'' +
+               ", createdAt=" + createdAt +
+               '}';
     }
 }

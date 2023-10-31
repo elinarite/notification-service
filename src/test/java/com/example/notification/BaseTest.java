@@ -1,7 +1,7 @@
 package com.example.notification;
 
-import com.example.notification.bot.TelegramBotConfig;
-import com.example.notification.service.impl.TelegramBotService;
+import com.example.notification.bot.config.TelegramBotConfig;
+import com.example.notification.bot.TelegramBotService;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
