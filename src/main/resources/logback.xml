@@ -17,7 +17,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.example.notification" level="debug" additivity="false">
+    <logger name="com.example.priceAlert" level="debug" additivity="false">
         <appender-ref ref="FILE-ROLLING"/>
     </logger>
 

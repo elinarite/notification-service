@@ -1,5 +1,6 @@
-package com.example.notification;
+package com.example.notification.websocket;
 
+import com.example.notification.BaseTest;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import org.junit.jupiter.api.BeforeEach;

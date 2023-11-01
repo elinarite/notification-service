@@ -1,7 +1,10 @@
 package com.example.notification.webSocket;
 
+import com.example.notification.bot.TelegramBotService;
+import com.example.notification.dto.WebSocketResponse;
+import com.example.notification.repository.NotificationService;
 import com.example.notification.service.ServiceException;
-import com.example.notification.service.impl.TelegramBotService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -9,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -21,10 +26,13 @@ public class WebSocketClient {
     @Autowired
     TelegramBotService telegramBotService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Value("${mexc.currency.rates.url}")
     private String url;
-
     private WebSocket webSocket;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @PostConstruct
     public void init() {
@@ -51,17 +59,20 @@ public class WebSocketClient {
                 webSocket.send(subscriptionMessage);
             }
 
-
             @Override
             public void onMessage(WebSocket webSocket, String text) {
-//                telegramBotService.sendMessage(1361169404L, "Новое значение: " + text);
-                log.info("Received message via WebSocket: " + text);
+                try {
+                    WebSocketResponse response = objectMapper.readValue(text, WebSocketResponse.class);
+                    BigDecimal currentValue = new BigDecimal(response.getD().getDeals().get(0).getP());
+                    notificationService.processCurrencyValue(currentValue);
+                } catch (IOException e) {
+                    log.error("Failed to parse WebSocket message: " + text, e);
+                }
             }
 
             @Override
             public void onFailure(WebSocket webSocket, Throwable t, Response response) {
                 log.error("Error with WebSocket", t);
-
             }
 
             @Override

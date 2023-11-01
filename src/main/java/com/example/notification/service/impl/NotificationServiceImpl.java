@@ -1,58 +1,68 @@
 package com.example.notification.service.impl;
 
-import com.example.notification.service.NotificationService;
-import com.example.notification.service.ServiceException;
-import com.example.notification.webSocket.WebSocketClient;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.notification.bot.TelegramBotService;
+import com.example.notification.model.Threshold;
+import com.example.notification.model.entity.PriceAlert;
+import com.example.notification.model.entity.User;
+import com.example.notification.repository.NotificationService;
+import com.example.notification.service.PriceAlertService;
+import com.example.notification.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ExecutionException;
+import java.math.BigDecimal;
+import java.util.NavigableMap;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class NotificationServiceImpl implements NotificationService {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String USDT_JSON = "{\"method\": \"SUBSCRIPTION\", \"params\": [\"spot@public.deals.v3.api@BTCUSDT\"]}";
-    private static final String EUR_JSON = "/ValCurs//Valute[@ID='6389.06534240']/Value";
 
     @Autowired
-    private WebSocketClient client;
+    private UserService userService;
 
-    @Override
-    public String getUSDExchangeRate() throws ServiceException {
+    @Autowired
+    private PriceAlertService priceAlertService;
+
+    @Autowired
+    TelegramBotService telegramBotService;
+
+    @Autowired
+    private ThresholdService thresholdService;
+
+    public void setBtcThreshold(Long chatId, String message) {
         try {
-            String json = client.startListening().get(); // ожидание завершения асинхронной операции
-            return extractCurrencyValueFromJson(json, USDT_JSON);
-        } catch (InterruptedException | ExecutionException e) {
-            throw new ServiceException("Error when getting exchange rate", e);
+            String currency = message.split(" ")[0];
+            BigDecimal maxThreshold = new BigDecimal(message.split(" ")[1]);
+
+            Optional<User> userOptional = userService.findByChatId(chatId);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                savePriceAlert(user, currency, maxThreshold);
+                telegramBotService.sendMessage(chatId, String.format("New currency value for %s: %s", currency, maxThreshold));
+            } else {
+                telegramBotService.sendMessage(chatId, "An error occurred. Please try again later.");
+            }
+        } catch (Exception e) {
+            telegramBotService.sendMessage(chatId, "An error occurred while setting the limit. Please check the command format.");
         }
     }
 
-    public String extractCurrencyValueFromJson(String json, String jsonPath) throws ServiceException {
-        try {
-            JsonNode rootNode = objectMapper.readTree(json);
+    private void savePriceAlert(User user, String currency, BigDecimal maxThreshold) {
+        PriceAlert priceAlert = new PriceAlert();
+        priceAlert.setUser(user);
+        priceAlert.setCurrencyName(currency);
+        priceAlert.setMaxThreshold(maxThreshold);
+        priceAlertService.save(priceAlert);
+    }
 
-            if (rootNode.has("id") && rootNode.get("id").asInt() == 0 && rootNode.has("code") && rootNode.get("code").asInt() == 0) {
-                return rootNode.get("msg").asText();
-            }
-
-            String[] parts = jsonPath.split("\\.");
-
-            for (String part : parts) {
-                if (part.endsWith("]") && part.contains("[")) {
-                    int index = Integer.parseInt(part.substring(part.indexOf('[') + 1, part.indexOf(']')));
-                    rootNode = rootNode.get(part.substring(0, part.indexOf('['))).get(index);
-                } else {
-                    rootNode = rootNode.get(part);
-                }
-                if (rootNode == null) {
-                    throw new ServiceException("Invalid JSON or empty: " + json);
-                }
-            }
-            return rootNode.asText();
-        } catch (Exception e) {
-            throw new ServiceException("Failed to parse JSON", e);
+    public void processCurrencyValue(BigDecimal currentValue) {
+        log.info("Processing currency value: " + currentValue);
+        NavigableMap<Threshold, User> headMap = thresholdService.getThresholdsMaxValue(currentValue);
+        for (Threshold threshold : headMap.keySet()) {
+            User user = threshold.getUser();
+            telegramBotService.sendMessage(user.getChatId(), "New currency value: " + currentValue);
         }
     }
 }

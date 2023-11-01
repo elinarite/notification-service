@@ -8,7 +8,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @SpringBootTest
 @ActiveProfiles("test")
-class NotificationServiceApplicationTest extends BaseTest{
+class PriceAlertServiceApplicationTest extends BaseTest{
 
     @Test
     void contextLoads() {

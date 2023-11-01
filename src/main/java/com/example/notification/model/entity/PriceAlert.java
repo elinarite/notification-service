@@ -1,4 +1,4 @@
-package com.example.notification.model;
+package com.example.notification.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,14 +11,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
+
 //todo @Data
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "notifications")
-public class Notification {
+@Table(name = "price_alert")
+public class PriceAlert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +50,7 @@ public class Notification {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Notification that)) return false;
+        if (!(o instanceof PriceAlert that)) return false;
         return Objects.equals(id, that.id) && Objects.equals(currencyName, that.currencyName);
     }
 
@@ -61,13 +62,13 @@ public class Notification {
     @Override
     public String toString() {
         return "Notification{" +
-                "id=" + id +
-                ", user=" + user +
-                ", currencyName='" + currencyName + '\'' +
-                ", minThreshold=" + minThreshold +
-                ", maxThreshold=" + maxThreshold +
-                ", createdAt=" + createdAt +
-                ", updateAt=" + updateAt +
-                '}';
+               "id=" + id +
+               ", user=" + user +
+               ", currencyName='" + currencyName + '\'' +
+               ", minThreshold=" + minThreshold +
+               ", maxThreshold=" + maxThreshold +
+               ", createdAt=" + createdAt +
+               ", updateAt=" + updateAt +
+               '}';
     }
 }
