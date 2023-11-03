@@ -18,7 +18,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "price_alert")
+@Table(name = "price_alerts")
 public class PriceAlert {
 
     @Id

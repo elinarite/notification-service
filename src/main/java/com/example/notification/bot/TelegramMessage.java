@@ -20,4 +20,11 @@ public class TelegramMessage {
             Additional commands:
             /help - get help
             """;
+
+    public static final String NEW_MAX_THRESHOLD_VALUE = "You have established a maximum threshold for the currency %s: %s";
+    public static final String NEW_MIN_THRESHOLD_VALUE = "You have established a minimum threshold for the currency %s: %s";
+    public static final String EXCEEDING_MAX_THRESHOLD_VALUE = "Your maximum threshold value has been exceeded, current currency rate: %s";
+    public static final String EXCEEDING_MIN_THRESHOLD_VALUE = "Your minimum threshold value has been exceeded, current currency rate: %s";
+    public static final String ERROR_OCCURRED_PLEASE_TRY_AGAIN_LATER = "An error occurred. Please try again later";
+    public static final String ERROR_SETTING_LIMIT_PLEASE_CHECK_FORMAT = "An error occurred while setting the limit. Please check the command format.";
 }

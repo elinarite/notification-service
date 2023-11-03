@@ -1,11 +1,13 @@
 package com.example.notification.service.impl;
 
 import com.example.notification.bot.TelegramBotService;
+import com.example.notification.bot.TelegramMessage;
 import com.example.notification.model.Threshold;
 import com.example.notification.model.entity.PriceAlert;
 import com.example.notification.model.entity.User;
-import com.example.notification.repository.NotificationService;
+import com.example.notification.service.NotificationService;
 import com.example.notification.service.PriceAlertService;
+import com.example.notification.service.ThresholdService;
 import com.example.notification.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +42,12 @@ public class NotificationServiceImpl implements NotificationService {
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 savePriceAlert(user, currency, maxThreshold);
-                telegramBotService.sendMessage(chatId, String.format("New currency value for %s: %s", currency, maxThreshold));
+                telegramBotService.sendMessage(chatId, String.format(TelegramMessage.NEW_MAX_THRESHOLD_VALUE, currency, maxThreshold));
             } else {
-                telegramBotService.sendMessage(chatId, "An error occurred. Please try again later.");
+                telegramBotService.sendMessage(chatId, TelegramMessage.ERROR_OCCURRED_PLEASE_TRY_AGAIN_LATER);
             }
         } catch (Exception e) {
-            telegramBotService.sendMessage(chatId, "An error occurred while setting the limit. Please check the command format.");
+            telegramBotService.sendMessage(chatId, TelegramMessage.ERROR_SETTING_LIMIT_PLEASE_CHECK_FORMAT);
         }
     }
 
@@ -62,7 +64,7 @@ public class NotificationServiceImpl implements NotificationService {
         NavigableMap<Threshold, User> headMap = thresholdService.getThresholdsMaxValue(currentValue);
         for (Threshold threshold : headMap.keySet()) {
             User user = threshold.getUser();
-            telegramBotService.sendMessage(user.getChatId(), "New currency value: " + currentValue);
+            telegramBotService.sendMessage(user.getChatId(), String.format(TelegramMessage.EXCEEDING_MAX_THRESHOLD_VALUE, currentValue));
         }
     }
 }
