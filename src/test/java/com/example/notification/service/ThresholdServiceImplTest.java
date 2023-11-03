@@ -4,7 +4,6 @@ import com.example.notification.BaseTest;
 import com.example.notification.model.Threshold;
 import com.example.notification.model.entity.PriceAlert;
 import com.example.notification.model.entity.User;
-import com.example.notification.service.impl.ThresholdService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 @Sql(scripts = "classpath:create-tables.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "classpath:test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "classpath:cleanup-tables.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class ThresholdServiceTest extends BaseTest {
+public class ThresholdServiceImplTest extends BaseTest {
 
     @Autowired
     private ThresholdService thresholdService;
@@ -40,10 +39,6 @@ public class ThresholdServiceTest extends BaseTest {
 
     private final NavigableMap<Threshold, User> thresholds = new TreeMap<>();
 
-    /**
-     * Application: Checking the status of the PostgreSQL test container.
-     * What's being tested: Ensuring that the container has been created and is currently running.
-     */
     @Container
     public static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:13.11")
             .withDatabaseName("test")
@@ -51,8 +46,8 @@ public class ThresholdServiceTest extends BaseTest {
             .withPassword("testpassword");
 
     /**
-     * Application: Testing the refreshThresholds function, which updates threshold values.
-     * What's being tested: Ensuring that after the update, the threshold values are correctly stored in the data structure (NavigableMap).
+     * Application: Checking the status of the PostgreSQL test container.
+     * What's being tested: Ensuring that the container has been created and is currently running.
      */
     @Test
     void connectionEstablished() {
@@ -62,8 +57,8 @@ public class ThresholdServiceTest extends BaseTest {
     }
 
     /**
-     * Application: Testing that threshold values are cleared before they are updated.
-     * What's being tested: Ensuring that old or irrelevant threshold values are removed before the threshold update function is executed.
+     * Application: Testing the refreshThresholds function, which updates threshold values.
+     * What's being tested: Ensuring that after the update, the threshold values are correctly stored in the data structure (NavigableMap).
      */
     @Test
     public void testRefreshThresholds() {
@@ -85,6 +80,11 @@ public class ThresholdServiceTest extends BaseTest {
         assertTrue(result.containsKey(new Threshold(alert2.getMaxThreshold(), alert2.getUser())));
     }
 
+
+    /**
+     * Application: Testing that threshold values are cleared before they are updated.
+     * What's being tested: Ensuring that old or irrelevant threshold values are removed before the threshold update function is executed.
+     */
     @Test
     public void testThresholdsClearedBeforeRefresh() {
         //given

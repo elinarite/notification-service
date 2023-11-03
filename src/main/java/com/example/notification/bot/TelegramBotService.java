@@ -2,7 +2,7 @@ package com.example.notification.bot;
 
 import com.example.notification.bot.config.TelegramBotConfig;
 import com.example.notification.model.entity.User;
-import com.example.notification.repository.NotificationService;
+import com.example.notification.service.NotificationService;
 import com.example.notification.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

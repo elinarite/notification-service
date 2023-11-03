@@ -4,6 +4,7 @@ import com.example.notification.model.Threshold;
 import com.example.notification.model.entity.PriceAlert;
 import com.example.notification.model.entity.User;
 import com.example.notification.service.PriceAlertService;
+import com.example.notification.service.ThresholdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.NavigableMap;
 import java.util.TreeMap;
 
 @Service
-public class ThresholdService {
+public class ThresholdServiceImpl implements ThresholdService {
 
     @Autowired
     private PriceAlertService priceAlertService;

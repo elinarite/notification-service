@@ -2,7 +2,7 @@ package com.example.notification.webSocket;
 
 import com.example.notification.bot.TelegramBotService;
 import com.example.notification.dto.WebSocketResponse;
-import com.example.notification.repository.NotificationService;
+import com.example.notification.service.NotificationService;
 import com.example.notification.exception.ServiceException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
