@@ -27,4 +27,7 @@ public class TelegramMessage {
     public static final String EXCEEDING_MIN_THRESHOLD_VALUE = "Your minimum threshold value has been exceeded, current currency rate: %s";
     public static final String ERROR_OCCURRED_PLEASE_TRY_AGAIN_LATER = "An error occurred. Please try again later";
     public static final String ERROR_SETTING_LIMIT_PLEASE_CHECK_FORMAT = "An error occurred while setting the limit. Please check the command format.";
+    public static final String ERROR_GET_AVERAGE_PRICE = "Error when retrieving the price.";
+    public static final String GET_AVERAGE_PRICE = "Average price for the currency %s: %s";
+    public static final String API_SERVICE_UNAVAILABLE = "Failed to fetch data from Mexc API.";
 }

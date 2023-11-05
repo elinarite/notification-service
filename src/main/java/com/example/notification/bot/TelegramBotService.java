@@ -1,5 +1,6 @@
 package com.example.notification.bot;
 
+import com.example.notification.api.MexcService;
 import com.example.notification.bot.config.TelegramBotConfig;
 import com.example.notification.model.entity.User;
 import com.example.notification.service.NotificationService;
@@ -21,6 +22,7 @@ public class TelegramBotService extends TelegramLongPollingBot {
     private static final String ETH = "/eth";
     private static final String LTC = "/ltc";
     private static final String DNX = "/dnx";
+    private static final String AVERAGE_PRICE_BTC = "BTCUSDT";
 
     @Autowired
     private TelegramBotConfig telegramBot;
@@ -31,6 +33,9 @@ public class TelegramBotService extends TelegramLongPollingBot {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private MexcService mexcService;
+
     @Override
     public void onUpdateReceived(Update update) {
         Message msg = update.getMessage();
@@ -40,10 +45,14 @@ public class TelegramBotService extends TelegramLongPollingBot {
         Long chatId = msg.getChatId();
 
         switch (message) {
-            case START -> {
-                String userName = update.getMessage().getChat().getUserName();
-                String firstName = update.getMessage().getChat().getFirstName();
+            case "/start" -> {
+                String userName = msg.getChat().getUserName();
+                String firstName = msg.getChat().getFirstName();
                 startCommand(chatId, userName, firstName);
+            }
+            case "/avgPrice" -> {
+                String avgPrice = mexcService.getAvgPrice(AVERAGE_PRICE_BTC);
+                sendMessage(chatId, String.format(TelegramMessage.GET_AVERAGE_PRICE, AVERAGE_PRICE_BTC, avgPrice));
             }
             default -> {
                 if (message.startsWith(BTC)) {
