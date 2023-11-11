@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -30,18 +31,18 @@ public class MexcServiceJsonTest extends BaseTest {
     @Test
     public void testGetAvgPriceValidJson() {
         //Given
-        String invalidJson = "{ \"mins\": 5, \"price\": \"35082.566000000006\" }";
+        String validJson = "{ \"mins\": 5, \"price\": \"35082.566000000006\" }";
         String symbol = "BTCUSDT";
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.mexc.com/api/v3/avgPrice")
                 .queryParam("symbol", symbol);
         String uri = builder.toUriString();
 
         //When
-        when(mockRestTemplate.getForObject(uri, String.class)).thenReturn(invalidJson);
+        when(mockRestTemplate.getForObject(uri, String.class)).thenReturn(validJson);
         String result = mexcService.getAvgPrice(symbol);
 
         //Then
-        assertEquals(result, result);
+        assertTrue(result, true);
     }
 
     /**

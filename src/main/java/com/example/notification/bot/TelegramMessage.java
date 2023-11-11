@@ -30,4 +30,6 @@ public class TelegramMessage {
     public static final String ERROR_GET_AVERAGE_PRICE = "Error when retrieving the price.";
     public static final String GET_AVERAGE_PRICE = "Average price for the currency %s: %s";
     public static final String API_SERVICE_UNAVAILABLE = "Failed to fetch data from Mexc API.";
+    public static final String SELECT_OPTION = "Select an option:";
+    public static final String RETURN_MENU = "Return to the initial menu:";
 }

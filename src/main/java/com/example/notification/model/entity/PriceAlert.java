@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,8 +31,9 @@ public class PriceAlert {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "currency_name", nullable = false, length = 10)
-    private String currencyName;
+    private Currency currencyName;
 
     @Column(name = "min_threshold", precision = 15, scale = 2)
     private BigDecimal minThreshold;

@@ -64,7 +64,7 @@ public class WebSocketClient {
                 try {
                     WebSocketResponse response = objectMapper.readValue(text, WebSocketResponse.class);
                     BigDecimal currentValue = new BigDecimal(response.getD().getDeals().get(0).getP());
-                    notificationService.processCurrencyValue(currentValue);
+//                    notificationService.processCurrencyValue(currentValue);
                 } catch (IOException e) {
                     log.error("Failed to parse WebSocket message: " + text, e);
                 }
