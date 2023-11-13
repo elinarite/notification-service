@@ -2,6 +2,7 @@ package com.example.notification.service;
 
 import com.example.notification.BaseTest;
 import com.example.notification.model.Threshold;
+import com.example.notification.model.entity.Currency;
 import com.example.notification.model.entity.PriceAlert;
 import com.example.notification.model.entity.User;
 import org.junit.jupiter.api.Assertions;
@@ -63,11 +64,11 @@ public class ThresholdServiceImplTest extends BaseTest {
     @Test
     public void testRefreshThresholds() {
         //given
-        Optional<PriceAlert> optionalAlert1 = priceAlertService.findByUserIdAndCurrency(1L, "BTC");
+        Optional<PriceAlert> optionalAlert1 = priceAlertService.findByUserIdAndCurrency(1L, Currency.BTC);
         assertTrue(optionalAlert1.isPresent());
         PriceAlert alert1 = optionalAlert1.get();
 
-        Optional<PriceAlert> optionalAlert2 = priceAlertService.findByUserIdAndCurrency(1361169404L, "BTC");
+        Optional<PriceAlert> optionalAlert2 = priceAlertService.findByUserIdAndCurrency(1361169404L, Currency.BTC);
         assertTrue(optionalAlert2.isPresent());
         PriceAlert alert2 = optionalAlert2.get();
 
@@ -79,7 +80,6 @@ public class ThresholdServiceImplTest extends BaseTest {
         assertTrue(result.containsKey(new Threshold(alert1.getMaxThreshold(), alert1.getUser())));
         assertTrue(result.containsKey(new Threshold(alert2.getMaxThreshold(), alert2.getUser())));
     }
-
 
     /**
      * Application: Testing that threshold values are cleared before they are updated.

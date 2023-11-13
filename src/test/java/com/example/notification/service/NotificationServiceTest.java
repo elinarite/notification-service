@@ -2,6 +2,7 @@ package com.example.notification.service;
 
 import com.example.notification.BaseTest;
 import com.example.notification.bot.TelegramMessage;
+import com.example.notification.model.entity.Currency;
 import com.example.notification.model.entity.PriceAlert;
 import com.example.notification.model.entity.User;
 import org.junit.jupiter.api.Assertions;
@@ -66,22 +67,22 @@ public class NotificationServiceTest extends BaseTest {
     public void testSetBtcThresholdDataExtraction() {
         // Given
         Long chatId = 1L;
-        String message = "/btc 24000";
+        String message = "BTC 24000";
         String value = "24000";
-        String currency = "/btc";
+        String currency = "BTC";
 
         // When
         notificationService.setBtcThreshold(chatId, message);
 
         // Then
-        Optional<PriceAlert> savedAlerts = priceAlertService.findByUserIdAndCurrency(chatId, currency);
+        Optional<PriceAlert> savedAlerts = priceAlertService.findByUserIdAndCurrency(chatId, Currency.BTC);
         assertTrue(savedAlerts.isPresent());
 
         PriceAlert savedAlert = savedAlerts.get();
 
-        assertEquals("/btc", savedAlert.getCurrencyName());
+        assertEquals(Currency.BTC, savedAlert.getCurrencyName());
         assertEquals(new BigDecimal("24000.00"), savedAlert.getMaxThreshold());
-        verify(mocktelegramBotService).sendMessage(chatId, String.format(TelegramMessage.NEW_MAX_THRESHOLD_VALUE, currency, value));
+        verify(mocktelegramBotService).sendMessage(chatId, String.format(TelegramMessage.NEW_MAX_THRESHOLD_VALUE, currency, value), null);
     }
 
     /**
@@ -92,16 +93,15 @@ public class NotificationServiceTest extends BaseTest {
     public void setBtcThresholdNonExistentChatId() {
         // Given
         Long nonExistentChatId = 12345L;
-        String message = "/btc 24000";
-        String currency = "/btc";
+        String message = "BTC 24000";
 
         // When
         notificationService.setBtcThreshold(nonExistentChatId, message);
 
         // Then
-        Optional<PriceAlert> savedAlerts = priceAlertService.findByUserIdAndCurrency(nonExistentChatId, currency);
+        Optional<PriceAlert> savedAlerts = priceAlertService.findByUserIdAndCurrency(nonExistentChatId, Currency.BTC);
         assertFalse(savedAlerts.isPresent());
-        verify(mocktelegramBotService).sendMessage(nonExistentChatId, TelegramMessage.ERROR_OCCURRED_PLEASE_TRY_AGAIN_LATER);
+        verify(mocktelegramBotService).sendMessage(nonExistentChatId, TelegramMessage.ERROR_OCCURRED_PLEASE_TRY_AGAIN_LATER, null);
     }
 
     /**
@@ -112,18 +112,17 @@ public class NotificationServiceTest extends BaseTest {
     public void setBtcThresholdIncorrectMessageFormat() {
         // Given
         Long chatId = 1L;
-        String incorrectMessage = "/btcincorrect 24000";
-        String currency = "/btc";
+        String incorrectMessage = "BTCincorrect 24000";
 
-        boolean isAlertPresentInitially = priceAlertService.findByUserIdAndCurrency(chatId, currency).isPresent();
+        boolean isAlertPresentInitially = priceAlertService.findByUserIdAndCurrency(chatId, Currency.BTC).isPresent();
 
         // When
         notificationService.setBtcThreshold(chatId, incorrectMessage);
 
         // Then
-        boolean isAlertPresentAfterTest = priceAlertService.findByUserIdAndCurrency(chatId, currency).isPresent();
-        assertFalse(isAlertPresentInitially && isAlertPresentAfterTest);
-        verify(mocktelegramBotService).sendMessage(chatId, TelegramMessage.ERROR_SETTING_LIMIT_PLEASE_CHECK_FORMAT);
+        boolean isAlertPresentAfterTest = priceAlertService.findByUserIdAndCurrency(chatId, Currency.BTC).isPresent();
+        assertTrue(isAlertPresentInitially && isAlertPresentAfterTest);
+        verify(mocktelegramBotService).sendMessage(chatId, TelegramMessage.ERROR_SETTING_LIMIT_PLEASE_CHECK_FORMAT, null);
     }
 
     /**
@@ -143,7 +142,7 @@ public class NotificationServiceTest extends BaseTest {
         notificationService.processCurrencyValue(currentValue);
 
         // Then
-        verify(mocktelegramBotService).sendMessage(user.getChatId(), String.format(TelegramMessage.EXCEEDING_MAX_THRESHOLD_VALUE, currentValue));
+        verify(mocktelegramBotService).sendMessage(user.getChatId(), String.format(TelegramMessage.EXCEEDING_MAX_THRESHOLD_VALUE, currentValue), null);
     }
 
     /**
@@ -162,6 +161,6 @@ public class NotificationServiceTest extends BaseTest {
         notificationService.processCurrencyValue(currentValue);
 
         // Then
-        verify(mocktelegramBotService, never()).sendMessage(user.getChatId(), "New currency value: " + currentValue);
+        verify(mocktelegramBotService, never()).sendMessage(user.getChatId(), "New currency value: " + currentValue, null);
     }
 }
