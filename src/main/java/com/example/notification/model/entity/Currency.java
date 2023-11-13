@@ -6,13 +6,13 @@ public enum Currency {
     LTC("LTCUSDT"),
     DNX("DNXUSDT");
 
-    private final String tradingPar;
+    private final String tradingPaar;
 
     Currency(String tradingPar) {
-        this.tradingPar = tradingPar;
+        this.tradingPaar = tradingPar;
     }
 
     public String getTradingPar(){
-        return tradingPar;
+        return tradingPaar;
     }
 }
